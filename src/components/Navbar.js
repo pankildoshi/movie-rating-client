@@ -2,13 +2,13 @@ import React from "react";
 
 export default function Navbar() {
   return (
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="container">
-        <a class="navbar-brand" href="#">
-          Movie Rating
-        </a>
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div className="container">
+        <Link to="/" className="nav-link">
+          About
+        </Link>
         <button
-          class="navbar-toggler"
+          className="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarNav"
@@ -16,34 +16,34 @@ export default function Navbar() {
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span class="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ml-auto">
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav ml-auto">
             <li>
-              <a class="nav-link" href="#">
+              <Link to="/" className="nav-link">
                 Home
-              </a>
+              </Link>
             </li>
             <li>
-              <a class="nav-link" href="#">
+              <Link to="#" className="nav-link">
                 Top Rated
-              </a>
+              </Link>
             </li>
             <li>
-              <a class="nav-link" href="#">
+              <Link to="#" className="nav-link">
                 Recently Released
-              </a>
+              </Link>
             </li>
             <li>
-              <a class="nav-link" href="#">
+              <Link to="#" className="nav-link">
                 About
-              </a>
+              </Link>
             </li>
             <li>
-              <a class="btn nav-btn mx-lg-2" href="login.html">
+              <Link to="/login" className="btn nav-btn mx-lg-2">
                 Login
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
