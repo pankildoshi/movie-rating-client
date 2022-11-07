@@ -9,6 +9,7 @@ import {
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Home from "./components/Home";
+import Login from "./components/Login/Login";
 
 function mainLayout() {
   return (
@@ -26,6 +27,7 @@ function App() {
   return (
     <Router>
       <Routes>
+        <Route path="/login" element={<Login />} />
         <Route path="/" element={mainLayout()}>
           <Route index element={<Home />} />
         </Route>

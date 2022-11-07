@@ -206,3 +206,58 @@ body {
     height: 250px;
   }
 }
+
+.concord-img-wrapper {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+}
+
+.concord-img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.concord-img-gradient {
+  background: rgba(0, 0, 0, 0.5);
+  background-image: linear-gradient(0deg, transparent 50%, rgba(0, 0, 0, 0.7)),
+    radial-gradient(50% 100%, transparent 0, rgba(0, 0, 0, 0.7) 100%);
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.form-transparent::-webkit-scrollbar {
+  display: none;
+}
+
+.form-transparent {
+  width: auto;
+  max-width: 450px;
+  max-height: 550px;
+  overflow: auto;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.8);
+  opacity: 1;
+  z-index: 1;
+}
+
+.nav-properties {
+  border-bottom: 2px solid white;
+}
+
+.nav-pills .nav-link.active,
+.btn-submit {
+  background: #e50914;
+  color: white;
+}
+
+.btn-link {
+  color: white;
+}

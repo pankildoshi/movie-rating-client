@@ -1,11 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function Navbar() {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container">
-        <Link to="/" className="nav-link">
-          About
+        <Link to="/" className="navbar-brand">
+          Movie Rating
         </Link>
         <button
           className="navbar-toggler"
