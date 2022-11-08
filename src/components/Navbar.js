@@ -1,7 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function Navbar() {
+  const [name, setName] = useState("");
+  const token = window.localStorage.getItem("token");
+  function getName() {
+    const url = "http://localhost:8000/user/id/" + token;
+    fetch(url).then((res) =>
+      res.json().then((data) => {
+        setName(data.name);
+      })
+    );
+    return name;
+  }
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container">
@@ -42,9 +53,13 @@ export default function Navbar() {
               </Link>
             </li>
             <li>
-              <Link to="/login" className="btn nav-btn mx-lg-2">
-                Login
-              </Link>
+              {token == null ? (
+                <Link to="/login" className="btn nav-btn mx-lg-2">
+                  Login
+                </Link>
+              ) : (
+                <p className="btn nav-btn mx-lg-2">{getName()}</p>
+              )}
             </li>
           </ul>
         </div>
