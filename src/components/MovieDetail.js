@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Loader from "./Loader";
-import YoutubeEmbed from "./YoutubeEmbed";
 
 export default function MovieDetail() {
   const [movie, setMovie] = useState(null);
