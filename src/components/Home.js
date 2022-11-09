@@ -8,14 +8,12 @@ export default function Home() {
     fetch(`http://localhost:8000/movie/${searchedmovie}`)
       .then((res) => res.json())
       .then((data) => {
-        if (data.status == "error") {
+        if (data.status === "error") {
           window.localStorage.setItem("recentsearch", "movienotfound");
-        }
-        else {
+        } else {
           setMovies(data);
           window.localStorage.setItem("recentsearch", "moviesearched");
         }
-
       });
   };
 
@@ -31,14 +29,27 @@ export default function Home() {
   return (
     <>
       <div className="input-group my-4 w-50 container">
-        <input type="text" className="form-control" placeholder="Search For Movie" aria-label="Recipient's username" aria-describedby="basic-addon2" onChange={(e) => searchForMovie(e.target.value)} />
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Search For Movie"
+          aria-label="Recipient's username"
+          aria-describedby="basic-addon2"
+          onChange={(e) => searchForMovie(e.target.value)}
+        />
         <div className="input-group-append">
-          <button className="btn btn-submit btn-lg" onClick={performMovieSearch} type="button">Search</button>
+          <button
+            className="btn btn-submit btn-lg"
+            onClick={performMovieSearch}
+            type="button"
+          >
+            Search
+          </button>
         </div>
       </div>
       <div>
         {(() => {
-          if (searchmovietoken == "displayallmovies") {
+          if (searchmovietoken === "displayallmovies") {
             return (
               <>
                 <div className="row top-rated">
@@ -52,6 +63,7 @@ export default function Home() {
                     {movies.map((movie) => {
                       return (
                         <Card
+                          id={movie._id}
                           movieName={movie.movie_name}
                           rating={movie.avg_rating}
                           img={movie.poster_image}
@@ -64,14 +76,15 @@ export default function Home() {
                   <div class="block mt4">
                     <h1 class="text-white">New Releases</h1>
                     <p class="text-muted">
-                      Really, You haven't watch these yet? Don't fall behind, Let's binge
-                      tonight!
+                      Really, You haven't watch these yet? Don't fall behind,
+                      Let's binge tonight!
                     </p>
                   </div>
                   <div class="slider">
                     {movies.reverse().map((movie) => {
                       return (
                         <Card
+                          id={movie._id}
                           movieName={movie.movie_name}
                           rating={movie.avg_rating}
                           img={movie.poster_image}
@@ -80,36 +93,33 @@ export default function Home() {
                     })}
                   </div>
                 </div>
-              </>)
-          }
-          else if (searchmovietoken == "moviesearched") {
+              </>
+            );
+          } else if (searchmovietoken === "moviesearched") {
             return (
-
               <div className="row top-rated">
                 <div className="block mt4">
                   <h1 className="text-white">Search Result</h1>
-                  <p className="text-muted">
-                    Result for Your Searched Movie
-                  </p>
+                  <p className="text-muted">Result for Your Searched Movie</p>
                 </div>
                 <div className="slider">
-                  {
-                    Array.isArray(movies) ?
-                      movies.map((movie) => {
-                        return (
-                          <Card
-                            movieName={movie.movie_name}
-                            rating={movie.avg_rating}
-                            img={movie.poster_image}
-                          />
-                        );
-                      }):<p className="text-muted">
-                      No Movie Found..
-                    </p>
-                    }
+                  {Array.isArray(movies) ? (
+                    movies.map((movie) => {
+                      return (
+                        <Card
+                          id={movie._id}
+                          movieName={movie.movie_name}
+                          rating={movie.avg_rating}
+                          img={movie.poster_image}
+                        />
+                      );
+                    })
+                  ) : (
+                    <p className="text-muted">No Movie Found..</p>
+                  )}
                 </div>
               </div>
-            )
+            );
           }
         })()}
       </div>

@@ -1,10 +1,18 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Card(props) {
+  let navigate = useNavigate();
   return (
     <div className="card">
-      <img src={props.img} alt="movie poster" />
-      <span className="rating">{props.rating}⭐</span>
+      <img
+        src={props.img}
+        alt="movie poster"
+        onClick={() => {
+          navigate(`/movies/${props.id}`);
+        }}
+      />
+      <span className="rating">{props.rating.substring(0, 3)}⭐</span>
       <div className="card-body">
         <p>{props.movieName}</p>
       </div>
