@@ -47,10 +47,22 @@ export default function Navbar() {
                 Recently Released
               </Link>
             </li>
+            
             <li>
               <Link to="#" className="nav-link">
                 About
               </Link>
+            </li>
+            
+            <li>
+              {token != null ? (
+
+                <Link to="/watchlist" className="nav-link">
+                  My WatchList
+                </Link>
+              ) : (
+                <></>
+              )}
             </li>
             <li>
               {token == null ? (
