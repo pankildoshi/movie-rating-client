@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginForm() {
+  let navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [statusError, setStatusError] = useState("");
@@ -27,7 +29,7 @@ export default function LoginForm() {
           setStatusError("");
           alert("Login Successful");
           window.localStorage.setItem("token", data.data);
-          window.location.href = "/";
+          navigate(`/`);
         } else {
           setStatusError(data.error);
         }

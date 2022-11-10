@@ -18,10 +18,10 @@ export default function Card(props) {
         <p>{props.movieName}</p>
       </div>
       <div className="card-footer d-flex justify-content-center">
-        {console.log(props.watchlist)}
         {props.watchlist == "true" ? (
-          <button className="btn btn-wishlist" onClick={
-            async function () {
+          <button
+            className="btn btn-wishlist"
+            onClick={async function () {
               if (usertoken != null) {
                 fetch(`http://localhost:8000/watchlist/delete/${props.id}/`, {
                   method: "DELETE",
@@ -34,26 +34,26 @@ export default function Card(props) {
                 })
                   .then((res) => res.json())
                   .then((data) => {
-                    console.log(data);
                     if (data.status === "ok") {
                       alert("Movie Removed from Watchlist");
-                      window.location.href = "/watchlist";
-                    } 
+                      navigate(`/watchlist`);
+                    }
                   });
+              } else {
+                navigate(`/`);
               }
-              else {
-                window.location.href = "/";
-              }
-
-            }}>
+            }}
+          >
             <i className="fa fa-bookmark"></i> Remove From Watchlist
           </button>
         ) : (
-
-          <button className="btn btn-wishlist" onClick={
-            async function () {
+          <button
+            className="btn btn-wishlist"
+            onClick={async function () {
               if (usertoken != null) {
-                await fetch(`http://localhost:8000/watchlist/${usertoken}/${props.id}/`)
+                await fetch(
+                  `http://localhost:8000/watchlist/${usertoken}/${props.id}/`
+                )
                   .then((res) => res.json())
                   .then((data) => {
                     if (data.status === "error") {
@@ -67,28 +67,25 @@ export default function Card(props) {
                         },
                         body: JSON.stringify({
                           userid: usertoken,
-                          movieid: props.id
+                          movieid: props.id,
                         }),
                       })
                         .then((res) => res.json())
                         .then((data) => {
                           if (data.status === "ok") {
-
                             alert("Movie Added Successful");
-                            window.location.href = "/";
+                            navigate(`/`);
                           }
                         });
-                    }
-                    else {
+                    } else {
                       alert("Movie Already Exist in Watchlist");
                     }
                   });
+              } else {
+                navigate(`/login`);
               }
-              else {
-                window.location.href = "/login";
-              }
-
-            }}>
+            }}
+          >
             <i className="fa fa-bookmark"></i> Watchlist
           </button>
         )}

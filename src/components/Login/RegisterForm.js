@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function RegisterForm() {
+  let navigate = useNavigate();
   const [formIsValid, setFormIsValid] = useState(false);
   const [passwordIsValid, setPasswordIsValid] = useState(false);
   const [termsIsValid, setTermsIsValid] = useState(false);
@@ -81,7 +83,7 @@ export default function RegisterForm() {
         if (data.status === "ok") {
           setStatusError("");
           alert("Sign Up Successful");
-          window.location.href = "/login";
+          navigate(`/login`);
         } else {
           setStatusError(data.error);
         }

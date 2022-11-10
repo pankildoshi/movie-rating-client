@@ -18,7 +18,6 @@ export default function Home() {
       });
   };
 
-  
   useEffect(() => {
     fetch("http://localhost:8000/movies")
       .then((res) => res.json())
@@ -61,47 +60,55 @@ export default function Home() {
                     </p>
                   </div>
                   <div className="slider">
-                    {movies && movies.length > 0 && movies.map((movie) => {
-                      return (
-                        <Card
-                          id={movie._id}
-                          movieName={movie.movie_name}
-                          rating={(
-                            parseInt(movie.avg_rating) /
-                            parseInt(movie.rating_counts)
-                          )
-                            .toString()
-                            .substring(0, 3)}
-                          img={movie.poster_image}
-                        />
-                      );
-                    })}
+                    {movies &&
+                      movies.length > 0 &&
+                      movies.map((movie) => {
+                        let rating = (
+                          parseInt(movie.avg_rating) /
+                          parseInt(movie.rating_counts)
+                        )
+                          .toString()
+                          .substring(0, 3);
+                        return (
+                          <Card
+                            key={movie._id}
+                            id={movie._id}
+                            movieName={movie.movie_name}
+                            rating={rating == "NaN" ? 0 : rating}
+                            img={movie.poster_image}
+                          />
+                        );
+                      })}
                   </div>
                 </div>
-                <div class="row new-releases">
-                  <div class="block mt4">
-                    <h1 class="text-white">New Releases</h1>
-                    <p class="text-muted">
+                <div className="row new-releases">
+                  <div className="block mt4">
+                    <h1 className="text-white">New Releases</h1>
+                    <p className="text-muted">
                       Really, You haven't watch these yet? Don't fall behind,
                       Let's binge tonight!
                     </p>
                   </div>
-                  <div class="slider">
-                    {movies && movies.length > 0  && movies.reverse().map((movie) => {
-                      return (
-                        <Card
-                          id={movie._id}
-                          movieName={movie.movie_name}
-                          rating={(
-                            parseInt(movie.avg_rating) /
-                            parseInt(movie.rating_counts)
-                          )
-                            .toString()
-                            .substring(0, 3)}
-                          img={movie.poster_image}
-                        />
-                      );
-                    })}
+                  <div className="slider">
+                    {movies &&
+                      movies.length > 0 &&
+                      movies.reverse().map((movie) => {
+                        let rating = (
+                          parseInt(movie.avg_rating) /
+                          parseInt(movie.rating_counts)
+                        )
+                          .toString()
+                          .substring(0, 3);
+                        return (
+                          <Card
+                            key={movie._id}
+                            id={movie._id}
+                            movieName={movie.movie_name}
+                            rating={rating == "NaN" ? 0 : rating}
+                            img={movie.poster_image}
+                          />
+                        );
+                      })}
                   </div>
                 </div>
               </>
@@ -114,18 +121,20 @@ export default function Home() {
                   <p className="text-muted">Result for Your Searched Movie</p>
                 </div>
                 <div className="slider">
-                  {movies && movies.length > 0  && Array.isArray(movies) ? (
+                  {movies && movies.length > 0 && Array.isArray(movies) ? (
                     movies.map((movie) => {
+                      let rating = (
+                        parseInt(movie.avg_rating) /
+                        parseInt(movie.rating_counts)
+                      )
+                        .toString()
+                        .substring(0, 3);
                       return (
                         <Card
+                          key={movie._id}
                           id={movie._id}
                           movieName={movie.movie_name}
-                          rating={(
-                            parseInt(movie.avg_rating) /
-                            parseInt(movie.rating_counts)
-                          )
-                            .toString()
-                            .substring(0, 3)}
+                          rating={rating == "NaN" ? 0 : rating}
                           img={movie.poster_image}
                         />
                       );
