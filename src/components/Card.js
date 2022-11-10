@@ -12,7 +12,7 @@ export default function Card(props) {
           navigate(`/movies/${props.id}`);
         }}
       />
-      {/* <span className="rating">{props.rating.substring(0, 3)}⭐</span> */}
+      <span className="rating">{props.rating}⭐</span>
       <div className="card-body">
         <p>{props.movieName}</p>
       </div>

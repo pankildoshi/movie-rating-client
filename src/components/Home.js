@@ -66,7 +66,12 @@ export default function Home() {
                         <Card
                           id={movie._id}
                           movieName={movie.movie_name}
-                          rating={movie.avg_rating}
+                          rating={(
+                            parseInt(movie.avg_rating) /
+                            parseInt(movie.rating_counts)
+                          )
+                            .toString()
+                            .substring(0, 3)}
                           img={movie.poster_image}
                         />
                       );
@@ -87,7 +92,12 @@ export default function Home() {
                         <Card
                           id={movie._id}
                           movieName={movie.movie_name}
-                          rating={movie.avg_rating}
+                          rating={(
+                            parseInt(movie.avg_rating) /
+                            parseInt(movie.rating_counts)
+                          )
+                            .toString()
+                            .substring(0, 3)}
                           img={movie.poster_image}
                         />
                       );
@@ -110,7 +120,12 @@ export default function Home() {
                         <Card
                           id={movie._id}
                           movieName={movie.movie_name}
-                          rating={movie.avg_rating}
+                          rating={(
+                            parseInt(movie.avg_rating) /
+                            parseInt(movie.rating_counts)
+                          )
+                            .toString()
+                            .substring(0, 3)}
                           img={movie.poster_image}
                         />
                       );
