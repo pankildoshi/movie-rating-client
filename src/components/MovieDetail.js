@@ -15,6 +15,7 @@ export default function MovieDetail() {
   const userid = window.localStorage.getItem("token");
 
   let params = useParams();
+  let usertoken = window.localStorage.getItem("token");
   useEffect(() => {
     const fetchMovies = async () => {
       fetch(`http://localhost:8000/movie/id/${params.id}`)
@@ -179,8 +180,50 @@ export default function MovieDetail() {
                 <hr />
               </div>
               <div className="col-sm-12 col-md-4">
-                <button className="btn btn-watchlist">
-                  <i className="fa fa-plus mx-1"></i>
+                <button className="btn btn-rate">
+                  <i className="fa fa-star px-2"></i>
+                  Rate
+                </button>
+                <button className="btn btn-watchlist" onClick={
+                  async function () {
+                    if (usertoken != null) {
+                      await fetch(`http://localhost:8000/watchlist/${usertoken}/${params.id}/`)
+                        .then((res) => res.json())
+                        .then((data) => {
+                          if (data.status == "error") {
+                            fetch("http://localhost:8000/watchlist", {
+                              method: "POST",
+                              crossDomain: true,
+                              headers: {
+                                "Content-Type": "application/json",
+                                Accept: "application/json",
+                                "Access-Control-Allow-Origin": "*",
+                              },
+                              body: JSON.stringify({
+                                userid: usertoken,
+                                movieid: params.id
+                              }),
+                            })
+                              .then((res) => res.json())
+                              .then((data) => {
+                                if (data.status === "ok") {
+
+                                  alert("Movie Added Successful");
+                                  window.location.href = "/";
+                                }
+                              });
+                          }
+                          else {
+                            alert("Movie Already Exist in Watchlist");
+                          }
+                        });
+                    }
+                    else {
+                      window.location.href = "/login";
+                    }
+
+                  }}>
+                  <i className="fa fa-plus px-2"></i>
                   Add to Watchlist
                 </button>
                 <button

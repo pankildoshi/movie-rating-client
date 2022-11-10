@@ -11,6 +11,8 @@ import Footer from "./components/Footer";
 import Home from "./components/Home";
 import Login from "./components/Login/Login";
 import MovieDetail from "./components/MovieDetail";
+import Watchlist from "./components/Watchlist";
+
 
 function mainLayout() {
   return (
@@ -29,7 +31,9 @@ function App() {
     <Router>
       <Routes>
         <Route path="/login" element={<Login />} />
+        
         <Route path="/" element={mainLayout()}>
+          <Route path="/watchlist" element={<Watchlist/>} />
           <Route index element={<Home />} />
           <Route path="movies/:id" element={<MovieDetail />} />
         </Route>
