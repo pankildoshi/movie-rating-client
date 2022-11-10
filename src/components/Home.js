@@ -4,6 +4,7 @@ import Card from "./Card";
 export default function Home() {
   const searchmovietoken = window.localStorage.getItem("recentsearch");
   const [searchedmovie, searchForMovie] = useState(["bleach"]);
+  const [movies, setMovies] = useState([]);
   const performMovieSearch = () => {
     fetch(`http://localhost:8000/movie/${searchedmovie}`)
       .then((res) => res.json())
@@ -17,7 +18,7 @@ export default function Home() {
       });
   };
 
-  const [movies, setMovies] = useState([]);
+  
   useEffect(() => {
     fetch("http://localhost:8000/movies")
       .then((res) => res.json())
@@ -60,12 +61,17 @@ export default function Home() {
                     </p>
                   </div>
                   <div className="slider">
-                    {movies.map((movie) => {
+                    {movies && movies.length > 0 && movies.map((movie) => {
                       return (
                         <Card
                           id={movie._id}
                           movieName={movie.movie_name}
-                          rating={movie.avg_rating}
+                          rating={(
+                            parseInt(movie.avg_rating) /
+                            parseInt(movie.rating_counts)
+                          )
+                            .toString()
+                            .substring(0, 3)}
                           img={movie.poster_image}
                         />
                       );
@@ -81,12 +87,17 @@ export default function Home() {
                     </p>
                   </div>
                   <div class="slider">
-                    {movies.reverse().map((movie) => {
+                    {movies && movies.length > 0  && movies.reverse().map((movie) => {
                       return (
                         <Card
                           id={movie._id}
                           movieName={movie.movie_name}
-                          rating={movie.avg_rating}
+                          rating={(
+                            parseInt(movie.avg_rating) /
+                            parseInt(movie.rating_counts)
+                          )
+                            .toString()
+                            .substring(0, 3)}
                           img={movie.poster_image}
                         />
                       );
@@ -103,13 +114,18 @@ export default function Home() {
                   <p className="text-muted">Result for Your Searched Movie</p>
                 </div>
                 <div className="slider">
-                  {Array.isArray(movies) ? (
+                  {movies && movies.length > 0  && Array.isArray(movies) ? (
                     movies.map((movie) => {
                       return (
                         <Card
                           id={movie._id}
                           movieName={movie.movie_name}
-                          rating={movie.avg_rating}
+                          rating={(
+                            parseInt(movie.avg_rating) /
+                            parseInt(movie.rating_counts)
+                          )
+                            .toString()
+                            .substring(0, 3)}
                           img={movie.poster_image}
                         />
                       );
