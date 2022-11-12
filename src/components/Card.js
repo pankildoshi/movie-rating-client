@@ -36,7 +36,7 @@ export default function Card(props) {
                   .then((data) => {
                     if (data.status === "ok") {
                       alert("Movie Removed from Watchlist");
-                      navigate(`/watchlist`);
+                      window.location.href = "/watchlist";
                     }
                   });
               } else {
