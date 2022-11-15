@@ -12,6 +12,7 @@ import Home from "./components/Home";
 import Login from "./components/Login/Login";
 import MovieDetail from "./components/MovieDetail";
 import Watchlist from "./components/Watchlist";
+import Forgotpassword from "./components/Forgotpassword";
 
 
 function mainLayout() {
@@ -31,6 +32,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="/forgotpassword" element={<Forgotpassword/>} />
         
         <Route path="/" element={mainLayout()}>
           <Route path="/watchlist" element={<Watchlist/>} />

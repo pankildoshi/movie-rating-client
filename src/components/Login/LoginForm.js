@@ -74,18 +74,8 @@ export default function LoginForm() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-
-        <div className="form-check mb-3 mb-md-0">
-          <input
-            className="form-check-input"
-            type="checkbox"
-            value=""
-            id="loginCheck"
-          />
-          <label className="form-check-label" for="loginCheck">
-            Remember me
-          </label>
-        </div>
+        <a href="/forgotpassword" className="link-light">Forget Password? (Click Here)</a>
+        
         <div className="justify-content-center d-flex mt-4">
           <button type="submit" className="btn btn-submit px-4">
             Sign in
