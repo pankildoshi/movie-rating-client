@@ -1,19 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function Navbar() {
   let navigate = useNavigate();
-  const [displayName, setDisplayName] = useState("");
+
   const [password, setNewPassword] = useState("");
   const token = window.localStorage.getItem("token");
+  const displayName = window.localStorage.getItem("displayName");
 
-  useEffect(() => {
-    fetch(`http://localhost:8000/user/id/${token}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setDisplayName(data.name);
-      });
-  }, []);
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container">
@@ -83,6 +77,7 @@ export default function Navbar() {
                         class="dropdown-item"
                         onClick={() => {
                           window.localStorage.removeItem("token");
+                          window.localStorage.removeItem("displayName");
                           navigate(`/login`);
                         }}
                         href="#"
@@ -135,23 +130,28 @@ export default function Navbar() {
                     type="button"
                     class="btn btn-success"
                     onClick={() => {
-                      fetch(`http://localhost:8000/user/${displayName}}`, {
-                        method: "PUT",
-                        crossDomain: true,
-                        headers: {
-                          "Content-Type": "application/json",
-                          Accept: "application/json",
-                          "Access-Control-Allow-Origin": "*",
-                        },
-                        body: JSON.stringify({
-                          password,
-                        }),
-                      })
+                      fetch(
+                        `http://localhost:8000/user/update/${displayName}`,
+                        {
+                          method: "PUT",
+                          crossDomain: true,
+                          headers: {
+                            "Content-Type": "application/json",
+                            Accept: "application/json",
+                            "Access-Control-Allow-Origin": "*",
+                          },
+                          body: JSON.stringify({
+                            password,
+                          }),
+                        }
+                      )
                         .then((res) => res.json())
                         .then((data) => {
+                          console.log(data);
                           if (data.status === "ok") {
                             alert("User Password Changed");
                             window.localStorage.removeItem("token");
+                            window.localStorage.removeItem("displayName");
                             navigate(`/login`);
                           } else {
                           }

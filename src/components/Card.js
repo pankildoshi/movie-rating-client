@@ -23,7 +23,7 @@ export default function Card(props) {
             className="btn btn-wishlist"
             onClick={async function () {
               if (usertoken != null) {
-                fetch(`http://localhost:8000/watchlist/delete/${props.id}/`, {
+                fetch(`http://localhost:8000/watchlist/delete/${props.id}`, {
                   method: "DELETE",
                   crossDomain: true,
                   headers: {

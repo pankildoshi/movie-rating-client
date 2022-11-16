@@ -11,9 +11,9 @@ export default function MovieDetail() {
 
   const [rate, setRate] = useState();
   const [review, setReview] = useState();
-  const [displayName, setDisplayName] = useState();
 
   const userid = window.localStorage.getItem("token");
+  const displayName = window.localStorage.getItem("displayName");
 
   let params = useParams();
   let usertoken = window.localStorage.getItem("token");
@@ -36,15 +36,6 @@ export default function MovieDetail() {
     fetchReviews();
   });
 
-  const getDisplayName = (token) => {
-    fetch(`http://localhost:8000/user/id/${token}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setDisplayName(data.name);
-      });
-    return displayName;
-  };
-
   const postReview = () => {
     fetch("http://localhost:8000/review", {
       method: "POST",
@@ -56,7 +47,7 @@ export default function MovieDetail() {
       },
       body: JSON.stringify({
         movieid: params.id,
-        userid: window.localStorage.getItem("token"),
+        username: displayName,
         message: review,
         rating: rate,
       }),
@@ -327,13 +318,17 @@ export default function MovieDetail() {
         </div>
         <div className="mt-4 p-2 rounded w-100 overflow-auto reviewbox">
           <h4>Reviews</h4>
-          {reviews.map((review) => (
-            <ReviewTile
-              username={getDisplayName(review.userid)}
-              rating={review.rating}
-              message={review.message}
-            />
-          ))}
+          {reviews != null ? (
+            reviews.map((review) => (
+              <ReviewTile
+                username={review.username}
+                rating={review.rating}
+                message={review.message}
+              />
+            ))
+          ) : (
+            <p>No reviews yet.</p>
+          )}
         </div>
       </div>
     );
