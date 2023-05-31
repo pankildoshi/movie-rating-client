@@ -1,4 +1,3 @@
-import "./App.css";
 import {
   BrowserRouter as Router,
   Routes,
@@ -33,10 +32,10 @@ function App() {
     <Router>
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="/forgotpassword" element={<Forgotpassword/>} />
-        
+        <Route path="/forgotpassword" element={<Forgotpassword />} />
+
         <Route path="/" element={mainLayout()}>
-          <Route path="/watchlist" element={<Watchlist/>} />
+          <Route path="/watchlist" element={<Watchlist />} />
           <Route index element={<Home />} />
           <Route path="movies/:id" element={<MovieDetail />} />
         </Route>
