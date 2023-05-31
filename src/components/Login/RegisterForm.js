@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { server } from "../../App";
 
 export default function RegisterForm() {
   let navigate = useNavigate();
@@ -62,7 +63,7 @@ export default function RegisterForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch("http://localhost:8000/register-user", {
+    fetch(`${server}/register-user`, {
       method: "POST",
       crossDomain: true,
       headers: {

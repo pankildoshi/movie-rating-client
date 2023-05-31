@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Loader from "./Loader";
 import ReviewTile from "./ReviewTile";
+import { server } from "../App";
 
 export default function MovieDetail() {
   let navigate = useNavigate();
@@ -19,14 +20,14 @@ export default function MovieDetail() {
   let usertoken = window.localStorage.getItem("token");
   useEffect(() => {
     const fetchMovies = async () => {
-      fetch(`http://localhost:8000/movie/id/${params.id}`)
+      fetch(`${server}/movie/id/${params.id}`)
         .then((res) => res.json())
         .then((data) => {
           setMovie(data[0]);
         });
     };
     const fetchReviews = async () => {
-      fetch(`http://localhost:8000/reviews/${params.id}`)
+      fetch(`${server}/reviews/${params.id}`)
         .then((res) => res.json())
         .then((data) => {
           setReviews(data.data);
@@ -37,7 +38,7 @@ export default function MovieDetail() {
   });
 
   const postReview = () => {
-    fetch("http://localhost:8000/review", {
+    fetch(`${server}/review`, {
       method: "POST",
       crossDomain: true,
       headers: {
@@ -55,13 +56,13 @@ export default function MovieDetail() {
       .then((res) => res.json())
       .then((data) => {
         if (data.status === "ok") {
-          console.log(data);
+          // console.log(data);
         }
       });
   };
 
   const updateRating = (avg_rating, rating_counts) => {
-    let url = "http://localhost:8000/movie/update/" + params.id;
+    let url = `${server}/movie/update/${params.id}`;
     fetch(url, {
       method: "PUT",
       crossDomain: true,
@@ -78,7 +79,7 @@ export default function MovieDetail() {
       .then((res) => res.json())
       .then((data) => {
         if (data.status === "ok") {
-          console.log(data.data);
+          // console.log(data.data);
         }
       });
   };
@@ -86,18 +87,15 @@ export default function MovieDetail() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setShowRateBox(false);
-    console.log(movie.avg_rating, rate);
     if (rate === "0") {
-      console.log("Select Appropriate option");
+      // console.log("Select Appropriate option");
       return;
     } else {
       if (movie.avg_rating === "0") {
-        console.log(rate, 1);
         updateRating(rate, "1");
       } else {
         let currRate = parseInt(movie.avg_rating) + parseInt(rate);
         let currCount = parseInt(movie.rating_counts) + 1;
-        console.log(currRate, currCount);
         updateRating(currRate.toString(), currCount.toString());
       }
       if (review !== "") {
@@ -157,8 +155,10 @@ export default function MovieDetail() {
         </div>
         <div className="mt-4">
           <div className="d-flex gap-2">
-            {movie.category.map((item) => (
-              <div className="category">{item.toUpperCase()}</div>
+            {movie.category.map((item, index) => (
+              <div key={index} className="category">
+                {item.toUpperCase()}
+              </div>
             ))}
           </div>
           <div className="mt-2">
@@ -183,13 +183,11 @@ export default function MovieDetail() {
                   className="btn btn-watchlist"
                   onClick={async function () {
                     if (usertoken != null) {
-                      await fetch(
-                        `http://localhost:8000/watchlist/${usertoken}/${params.id}/`
-                      )
+                      await fetch(`${server}/${usertoken}/${params.id}/`)
                         .then((res) => res.json())
                         .then((data) => {
                           if (data.status == "error") {
-                            fetch("http://localhost:8000/watchlist", {
+                            fetch(`${server}/watchlist`, {
                               method: "POST",
                               crossDomain: true,
                               headers: {
@@ -319,8 +317,9 @@ export default function MovieDetail() {
         <div className="mt-4 p-2 rounded w-100 overflow-auto reviewbox">
           <h4>Reviews</h4>
           {reviews != null ? (
-            reviews.map((review) => (
+            reviews.map((review, index) => (
               <ReviewTile
+                key={index}
                 username={review.username}
                 rating={review.rating}
                 message={review.message}

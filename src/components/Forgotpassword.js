@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { server } from "../App";
 
 const Forgotpassword = () => {
   let navigate = useNavigate();
@@ -14,7 +15,7 @@ const Forgotpassword = () => {
   }, []);
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch(`http://localhost:8000/resetpassword/${userEmail}`)
+    fetch(`${server}/resetpassword/${userEmail}`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data.status);
@@ -122,7 +123,7 @@ const Forgotpassword = () => {
                           className="btn btn-submit px-4"
                           onClick={(e) => {
                             fetch(
-                              `http://localhost:8000/user/email/${userEmail}`,
+                              `${server}/user/email/${userEmail}`,
                               {
                                 method: "PUT",
                                 crossDomain: true,

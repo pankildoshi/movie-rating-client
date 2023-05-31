@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Card from "./Card";
+import { server } from "../App";
 
 export default function Home() {
   const searchmovietoken = window.localStorage.getItem("recentsearch");
   const [searchedmovie, searchForMovie] = useState(["bleach"]);
   const [movies, setMovies] = useState([]);
   const performMovieSearch = () => {
-    fetch(`http://localhost:8000/movie/${searchedmovie}`)
+    fetch(`${server}/movie/${searchedmovie}`)
       .then((res) => res.json())
       .then((data) => {
         if (data.status === "error") {
@@ -19,7 +20,7 @@ export default function Home() {
   };
 
   useEffect(() => {
-    fetch("http://localhost:8000/movies")
+    fetch(`${server}/movies`)
       .then((res) => res.json())
       .then((data) => {
         setMovies(data);

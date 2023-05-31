@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { server } from "../../App";
 
 export default function LoginForm() {
   let navigate = useNavigate();
@@ -9,7 +10,7 @@ export default function LoginForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch("http://localhost:8000/login-user", {
+    fetch(`${server}/login-user`, {
       method: "POST",
       crossDomain: true,
       headers: {

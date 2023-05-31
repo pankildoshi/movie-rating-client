@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { server } from "../App";
 
 export default function Navbar() {
   let navigate = useNavigate();
@@ -48,9 +49,9 @@ export default function Navbar() {
                   Login
                 </Link>
               ) : (
-                <div class="dropdown">
+                <div className="dropdown">
                   <button
-                    class="btn nav-btn dropdown-toggle"
+                    className="btn nav-btn dropdown-toggle"
                     type="button"
                     id="dropdownMenuButton1"
                     data-bs-toggle="dropdown"
@@ -59,12 +60,12 @@ export default function Navbar() {
                     Welcome {displayName}
                   </button>
                   <ul
-                    class="dropdown-menu"
+                    className="dropdown-menu"
                     aria-labelledby="dropdownMenuButton1"
                   >
                     <li>
                       <a
-                        class="dropdown-item"
+                        className="dropdown-item"
                         href="#"
                         data-bs-toggle="modal"
                         data-bs-target="#passwordChangeModal"
@@ -74,7 +75,7 @@ export default function Navbar() {
                     </li>
                     <li>
                       <a
-                        class="dropdown-item"
+                        className="dropdown-item"
                         onClick={() => {
                           window.localStorage.removeItem("token");
                           window.localStorage.removeItem("displayName");
@@ -91,26 +92,26 @@ export default function Navbar() {
             </li>
           </ul>
           <div
-            class="modal fade"
+            className="modal fade"
             id="passwordChangeModal"
-            tabindex="-1"
+            tabIndex="-1"
             aria-labelledby="passwordChangeModalLabel"
             aria-hidden="true"
           >
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="passwordChangeModalLabel">
+            <div className="modal-dialog">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title" id="passwordChangeModalLabel">
                     Change Your Password
                   </h5>
                   <button
                     type="button"
-                    class="btn-close"
+                    className="btn-close"
                     data-bs-dismiss="modal"
                     aria-label="Close"
                   ></button>
                 </div>
-                <div class="modal-body">
+                <div className="modal-body">
                   <input
                     type="password"
                     className="form-control"
@@ -118,33 +119,30 @@ export default function Navbar() {
                     onChange={(e) => setNewPassword(e.target.value)}
                   />
                 </div>
-                <div class="modal-footer">
+                <div className="modal-footer">
                   <button
                     type="button"
-                    class="btn btn-secondary"
+                    className="btn btn-secondary"
                     data-bs-dismiss="modal"
                   >
                     Close
                   </button>
                   <button
                     type="button"
-                    class="btn btn-success"
+                    className="btn btn-success"
                     onClick={() => {
-                      fetch(
-                        `http://localhost:8000/user/update/${displayName}`,
-                        {
-                          method: "PUT",
-                          crossDomain: true,
-                          headers: {
-                            "Content-Type": "application/json",
-                            Accept: "application/json",
-                            "Access-Control-Allow-Origin": "*",
-                          },
-                          body: JSON.stringify({
-                            password,
-                          }),
-                        }
-                      )
+                      fetch(`${server}/user/update/${displayName}`, {
+                        method: "PUT",
+                        crossDomain: true,
+                        headers: {
+                          "Content-Type": "application/json",
+                          Accept: "application/json",
+                          "Access-Control-Allow-Origin": "*",
+                        },
+                        body: JSON.stringify({
+                          password,
+                        }),
+                      })
                         .then((res) => res.json())
                         .then((data) => {
                           console.log(data);

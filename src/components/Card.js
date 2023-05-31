@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { server } from "../App";
 
 export default function Card(props) {
   let navigate = useNavigate();
@@ -23,7 +24,7 @@ export default function Card(props) {
             className="btn btn-wishlist"
             onClick={async function () {
               if (usertoken != null) {
-                fetch(`http://localhost:8000/watchlist/delete/${props.id}`, {
+                fetch(`${server}/watchlist/delete/${props.id}`, {
                   method: "DELETE",
                   crossDomain: true,
                   headers: {
@@ -52,12 +53,12 @@ export default function Card(props) {
             onClick={async function () {
               if (usertoken != null) {
                 await fetch(
-                  `http://localhost:8000/watchlist/${usertoken}/${props.id}/`
+                  `${server}/watchlist/${usertoken}/${props.id}/`
                 )
                   .then((res) => res.json())
                   .then((data) => {
                     if (data.status === "error") {
-                      fetch("http://localhost:8000/watchlist", {
+                      fetch(`${server}/watchlist`, {
                         method: "POST",
                         crossDomain: true,
                         headers: {

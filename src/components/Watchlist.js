@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Card from "./Card";
+import { server } from "../App";
 
 const Watchlist = () => {
   const [movies, setMovies] = useState([]);
   const [watchlistmovies, setMoviesFromWatchList] = useState([]);
   let usertoken = window.localStorage.getItem("token");
   useEffect(() => {
-    fetch(`http://localhost:8000/watchlist/${usertoken}`)
+    fetch(`${server}/watchlist/${usertoken}`)
       .then((res) => res.json())
       .then((data) => {
         setMoviesFromWatchList(data);
@@ -15,7 +16,7 @@ const Watchlist = () => {
   useEffect(() => {
     if (watchlistmovies.length > 0 && watchlistmovies) {
       watchlistmovies.map((movie) => {
-        fetch(`http://localhost:8000/movie/id/${movie.movieid}`)
+        fetch(`${server}/movie/id/${movie.movieid}`)
           .then((res) => res.json())
           .then((data) => {
             if (data.status === "error") {
@@ -36,7 +37,7 @@ const Watchlist = () => {
           <h1 className="text-white">My WatchList</h1>
           <p className="text-muted">Keep A Track of all your Favorite Movies</p>
         </div>
-        <div class="slider">
+        <div className="slider">
           {movies && movies.length > 0 && Array.isArray(movies) ? (
             movies.reverse().map((movie) => {
               let rating = (
@@ -46,6 +47,7 @@ const Watchlist = () => {
                 .substring(0, 3);
               return (
                 <Card
+                  key={movie._id}
                   id={movie._id}
                   watchlist="true"
                   movieName={movie.movie_name}

@@ -14,6 +14,7 @@ import MovieDetail from "./components/MovieDetail";
 import Watchlist from "./components/Watchlist";
 import Forgotpassword from "./components/Forgotpassword";
 
+export const server = "https://movie-rating-api-zrkc.onrender.com";
 
 function mainLayout() {
   return (
